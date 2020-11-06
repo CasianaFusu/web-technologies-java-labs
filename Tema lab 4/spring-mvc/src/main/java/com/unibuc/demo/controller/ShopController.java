@@ -46,10 +46,11 @@ public class ShopController {
         return "view-shops";
     }
 
+    // am facut doar partea de end-point la update, nu si cea de view
     @PutMapping("/update")
     public String updateShop(ShopDto shopDto, Model model){
         shopService.updateShop(shopDto);
-        model.addAttribute("shopDtos", shopService.getAllShop());
+        model.addAttribute("shopDto", shopService.getAllShop());
         return "view-shops";
     }
 
