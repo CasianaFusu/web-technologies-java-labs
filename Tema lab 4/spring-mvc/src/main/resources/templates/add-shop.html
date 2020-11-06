@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Shops</title>
+</head>
+<body>
+<h1> Create shop</h1>
+
+<form action="#" th:action="@{/shops/create}" th:object="${shopDto}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{shopName}" id="name">
+    <label for="name">CUI</label>
+    <input type="text" th:field="*{shopCUI}" id="cui">
+    <input type="submit" value="Add">
+</form>
+</form>
+</body>
+</html>

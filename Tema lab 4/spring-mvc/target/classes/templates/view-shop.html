@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Shops</title>
+</head>
+<body>
+<h1> View Shop</h1>
+
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>CUI</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <td> <span th:text="${shopDto.shopName}"> Name </span></td>
+        <td> <span th:text="${shopDto.shopCUI}"> CUI </span></td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<h3>Product List</h3>
+<table>
+    <thead>
+    <tr>
+        <td>Name</td>
+        <td>Rating</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:if="${shopDto.shopProductList.empty}">
+        <td colspan="2">No products available</td>
+    </tr>
+    <tr th:each="productDto : ${shopDto.shopProductList}">
+        <td> <span th:text="${productDto.productName}"> Name </span></td>
+        <td> <span th:text="${productDto.productRating}"> Rating </span></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
