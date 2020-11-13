@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Carti</title>
+</head>
+<body>
+<h1> Carti </h1>
+<table>
+    <thead>
+    <tr>
+        <td style="font-weight: bold; width: 200px;">Titlul cartii</td>
+        <td style="font-weight: bold; width: 200px;">IBAN</td>
+        <td style="font-weight: bold; width: 200px;">Autor</td>
+        <td style="font-weight: bold; width: 200px;"></td>
+        <td style="font-weight: bold; width: 200px;"></td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:if="${bookDtos.empty}">
+        <td colspan="2">Nu a fost adaugata nicio carte</td>
+    </tr>
+    <tr th:each="bookDto : ${bookDtos}">
+        <td> <a th:href="@{/books/{iban}(iban=${bookDto.bookIban})}" th:text="${bookDto.bookTitle}"> Name </a></td>
+        <td> <span th:text="${bookDto.bookIban}"> IBAN </span></td>
+        <td> <span th:text="${bookDto.bookAuthor}"> Autor </span></td>
+        <td> <a th:href="@{/books/edit-book/{iban}(iban=${bookDto.bookIban})}"> Modificare </a></td>
+        <td> <a th:href="@{/books/delete-book/{iban}(iban=${bookDto.bookIban})}"> Stergere </a></td>
+    </tr>
+    </tbody>
+</table>
+<hr/>
+<h1> Functionalitati </h1>
+<a style="color:darkgreen;" th:href="@{/books/view-create}"> Adauga Carte </a>
+<p>Vizualizare carte - click pe numele cartii</p>
+<p>Modificare detalii carte - click pe Modificare </p>
+<p>Stergere carte - click pe Stergere </p>
+
+</body>
+
+</html>
