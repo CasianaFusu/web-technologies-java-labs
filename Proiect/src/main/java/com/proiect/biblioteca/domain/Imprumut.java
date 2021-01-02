@@ -10,8 +10,8 @@ import java.util.Date;
 @Builder
 public class Imprumut {
     private int id;
-    private int utilizatorId;
-    private int carteId;
+    private int idUtilizator;
+    private int idCarte;
     private Date dataImprumut;
     private Date dataExpirare;
     private boolean incheiat;

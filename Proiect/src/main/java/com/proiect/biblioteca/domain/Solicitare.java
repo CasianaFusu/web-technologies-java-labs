@@ -10,6 +10,6 @@ import java.util.Date;
 @Builder
 public class Solicitare {
     private int id;
-    private int imprumutId;
+    private int idImprumut;
     private Date dataAmanare;
 }

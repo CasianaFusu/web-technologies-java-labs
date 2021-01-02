@@ -1,6 +1,10 @@
-package com.proiect.biblioteca.domain;
+package com.proiect.biblioteca.dto;
 
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -8,12 +12,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Carte {
+public class CarteDto {
     private int id;
     private String isbn;
     private String nume;
-    private int idAutor;
     private Date dataAdaugare;
-    private int idCategorie;
     private int stoc;
 }

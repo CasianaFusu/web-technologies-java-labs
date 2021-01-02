@@ -13,5 +13,5 @@ public class Utilizator {
     private String email;
     private String parola;
     private boolean activat;
-    private int rolId;
+    private int idRol;
 }
