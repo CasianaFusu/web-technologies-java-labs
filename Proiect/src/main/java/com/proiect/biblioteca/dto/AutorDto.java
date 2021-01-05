@@ -1,23 +1,16 @@
 package com.proiect.biblioteca.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CarteDto {
+public class AutorDto {
     private int id;
-    private String isbn;
     private String nume;
-    private int idAutor;
-    private int idCategorie;
-    private Date dataAdaugare;
-    private int stoc;
+    private String prenume;
 }
