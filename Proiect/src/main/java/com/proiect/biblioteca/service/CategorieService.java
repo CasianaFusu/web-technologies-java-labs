@@ -41,5 +41,4 @@ public class CategorieService {
             return categorieRepository.delete(id);
         else return "Exista carti din aceasta categorie.";
     }
-
 }

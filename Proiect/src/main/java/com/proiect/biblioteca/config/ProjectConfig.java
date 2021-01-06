@@ -6,8 +6,11 @@ import com.proiect.biblioteca.mapper.CarteMapperImpl;
 import com.proiect.biblioteca.mapper.AutorMapperImpl;
 import com.proiect.biblioteca.mapper.CategorieMapper;
 import com.proiect.biblioteca.mapper.CategorieMapperImpl;
+import com.proiect.biblioteca.mapper.ImprumutMapper;
+import com.proiect.biblioteca.mapper.ImprumutMapperImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 @Configuration
 public class ProjectConfig {
@@ -24,5 +27,10 @@ public class ProjectConfig {
     @Bean
     public CategorieMapper categorieMapper() {
         return new CategorieMapperImpl();
+    }
+
+    @Bean
+    public ImprumutMapper imprumutMapper() {
+        return new ImprumutMapperImpl();
     }
 }

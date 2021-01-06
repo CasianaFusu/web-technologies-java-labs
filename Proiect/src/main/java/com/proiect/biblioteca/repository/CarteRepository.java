@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+
 @Repository
 public class CarteRepository {
     private final JdbcTemplate jdbcTemplate;
@@ -106,6 +107,24 @@ public class CarteRepository {
                 )
         );
         return jdbcTemplate.query(sql,mapper, idAutor);
+    }
+
+    public int decreaseStocById(int id){
+        String sql = "UPDATE carti SET stoc = stoc - 1 WHERE id = ?";
+
+        int affectedRows = jdbcTemplate.update(sql, id);
+        if(affectedRows == 0)
+            throw new RuntimeException("Nu a fost gasita nicio carte cu id-ul " + id);
+        else return affectedRows;
+    }
+
+    public int increaseStocById(int id){
+        String sql = "UPDATE carti SET stoc = stoc + 1 WHERE id = ?";
+
+        int affectedRows = jdbcTemplate.update(sql, id);
+        if(affectedRows == 0)
+            throw new RuntimeException("Nu a fost gasita nicio carte cu id-ul " + id);
+        else return affectedRows;
     }
 }
 
