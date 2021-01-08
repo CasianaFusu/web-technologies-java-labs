@@ -1,6 +1,9 @@
-package com.proiect.biblioteca.domain;
+package com.proiect.biblioteca.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -8,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Solicitare {
+public class SolicitareDto {
     private int id;
     private int idImprumut;
     private Date termenAmanare;

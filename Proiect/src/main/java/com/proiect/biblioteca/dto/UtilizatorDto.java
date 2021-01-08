@@ -1,12 +1,15 @@
-package com.proiect.biblioteca.domain;
+package com.proiect.biblioteca.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Utilizator {
+public class UtilizatorDto {
     private int id;
     private String username;
     private String nume;
@@ -16,3 +19,5 @@ public class Utilizator {
     private boolean activat;
     private int idRol;
 }
+
+//todo: loginDTO
