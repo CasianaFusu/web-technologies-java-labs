@@ -2,10 +2,7 @@ package com.proiect.biblioteca.repository;
 
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Utilizator;
-<<<<<<< Updated upstream
-=======
 import com.proiect.biblioteca.exception.EntityNotFoundException;
->>>>>>> Stashed changes
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -82,9 +79,6 @@ public class UtilizatorRepository {
         String sql = "UPDATE utilizatori SET username = ?, nume = ?, prenume = ?, email = ?, parola = ?, isActivat = ?, idRol = ? WHERE id = ?";
         int affectedRows = jdbcTemplate.update(sql, utilizator.getUsername(), utilizator.getNume(), utilizator.getPrenume(), utilizator.getEmail(),utilizator.getParola(),utilizator.isActivat(), utilizator.getIdRol());
         if (affectedRows == 0) {
-<<<<<<< Updated upstream
-            throw new RuntimeException("Nu a fost gasita niciun utilizator cu id-ul " + utilizator.getId());
-=======
             throw new EntityNotFoundException("Utilizator");
         }
         else return affectedRows;
@@ -95,7 +89,6 @@ public class UtilizatorRepository {
         int affectedRows = jdbcTemplate.update(sql, id);
         if (affectedRows == 0){
             throw new EntityNotFoundException("Utilizator");
->>>>>>> Stashed changes
         }
         else return affectedRows;
     }
@@ -121,11 +114,7 @@ public class UtilizatorRepository {
 
         int affectedRows = jdbcTemplate.update(sql, id);
         if(affectedRows == 0)
-<<<<<<< Updated upstream
-            throw new RuntimeException("Nu a fost gasit niciun utilizator cu id-ul " + id);
-=======
             throw new EntityNotFoundException("Utilizator");
->>>>>>> Stashed changes
         else return "Utilizatorul a fost sters.";
     }
 }

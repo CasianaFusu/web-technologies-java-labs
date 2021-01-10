@@ -1,25 +1,12 @@
 package com.proiect.biblioteca.service;
 
 import com.proiect.biblioteca.domain.*;
-<<<<<<< Updated upstream
-=======
 import com.proiect.biblioteca.exception.EntityNotFoundException;
->>>>>>> Stashed changes
 import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
 import com.proiect.biblioteca.repository.UtilizatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< Updated upstream
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-=======
 
->>>>>>> Stashed changes
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,19 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-<<<<<<< Updated upstream
-public class UtilizatorService implements UserDetailsService {
-    private final UtilizatorRepository utilizatorRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-
-=======
 public class UtilizatorService {
     private final UtilizatorRepository utilizatorRepository;
 
->>>>>>> Stashed changes
     public UtilizatorService(UtilizatorRepository utilizatorRepository){
         this.utilizatorRepository = utilizatorRepository;
     }
@@ -50,11 +27,7 @@ public class UtilizatorService {
     }
 
     public Utilizator findById(int id){
-<<<<<<< Updated upstream
-        return utilizatorRepository.findById(id).orElseThrow(()-> new RuntimeException("Utilizatorul nu a fost gasit."));
-=======
         return utilizatorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Utilizator"));
->>>>>>> Stashed changes
     }
 
     public Utilizator create(Utilizator request){
@@ -65,13 +38,10 @@ public class UtilizatorService {
         return utilizatorRepository.update(request);
     }
 
-<<<<<<< Updated upstream
-=======
     public int activate(int id){
         return utilizatorRepository.activate(id);
     }
 
->>>>>>> Stashed changes
     public Utilizator findByUsername(String username){
         return utilizatorRepository.findByUsername(username).get();
     }
@@ -79,30 +49,6 @@ public class UtilizatorService {
     public String delete(int id){
             return utilizatorRepository.delete(id);
     }
-<<<<<<< Updated upstream
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Optional<Utilizator> optionalUser = utilizatorRepository.findByUsername(userName);
-        if(optionalUser.isPresent()) {
-            Utilizator users = optionalUser.get();
-
-            List<String> roleList = new ArrayList<String>();
-            roleList.add("USER");
-            return User.builder()
-                    .username(users.getUsername())
-                    //change here to store encoded password in db
-                    .password( users.getParola() )
-                    .disabled(users.isActivat())
-                    .roles(roleList.toArray(new String[0]))
-                    .build();
-        } else {
-            throw new UsernameNotFoundException("User Name is not Found");
-        }
-    }
-=======
->>>>>>> Stashed changes
 }

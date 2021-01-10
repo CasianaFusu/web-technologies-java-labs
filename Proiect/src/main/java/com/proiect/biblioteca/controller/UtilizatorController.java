@@ -14,10 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< Updated upstream
-=======
 import javax.validation.Valid;
->>>>>>> Stashed
 import java.util.List;
 
 @RestController
@@ -44,30 +41,16 @@ public class UtilizatorController {
         return new ResponseEntity<UtilizatorDto>(mapper.toDto(utilizator),HttpStatus.OK);
     }
 
-<<<<<<< Updated upstream
-    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UtilizatorDto> create(@RequestBody UtilizatorDto request){
-=======
-    @PutMapping(path = "/activate/{id}")
-    public ResponseEntity<Integer> activate(@PathVariable int id){
-        int affectedRows = service.activate(id);
-        return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
-    }
 
 
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UtilizatorDto> create(@Valid @RequestBody UtilizatorDto request){
->>>>>>> Stashed changes
         Utilizator utilizator = service.create(mapper.toEntity(request));
         return new ResponseEntity<UtilizatorDto>(mapper.toDto(utilizator),HttpStatus.OK);
     }
 
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-<<<<<<< Updated upstream
-    public ResponseEntity<Integer> update(@RequestBody UtilizatorDto request){
-=======
     public ResponseEntity<Integer> update(@Valid @RequestBody UtilizatorDto request){
->>>>>>> Stashed changes
         int affectedRows = service.update(mapper.toEntity(request));
         return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
     }
@@ -76,6 +59,12 @@ public class UtilizatorController {
     public ResponseEntity<String> delete(@PathVariable int id){
         String result = service.delete(id);
         return new ResponseEntity<String>(result, HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/activate/{id}")
+    public ResponseEntity<Integer> activate(@PathVariable int id){
+        int affectedRows = service.activate(id);
+        return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
     }
 
 }
