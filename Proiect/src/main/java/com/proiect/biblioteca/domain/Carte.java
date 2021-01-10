@@ -2,6 +2,7 @@ package com.proiect.biblioteca.domain;
 
 import lombok.*;
 
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data

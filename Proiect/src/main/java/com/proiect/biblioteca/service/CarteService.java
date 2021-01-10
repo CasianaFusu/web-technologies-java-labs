@@ -4,6 +4,7 @@ package com.proiect.biblioteca.service;
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Imprumut;
 import com.proiect.biblioteca.dto.CarteDto;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import com.proiect.biblioteca.repository.AutorRepository;
 import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
@@ -28,7 +29,7 @@ public class CarteService {
     }
 
     public Carte findById(int id){
-        return carteRepository.findById(id).orElseThrow(()-> new RuntimeException("Cartea nu a fost gasita."));
+        return carteRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Carte"));
     }
 
     public Carte create(Carte request){

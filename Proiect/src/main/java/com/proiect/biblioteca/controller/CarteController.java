@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -38,9 +39,9 @@ public class CarteController {
     }
 
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CarteDto> create(@RequestBody CarteDto request){
+    public ResponseEntity<CarteDto> create(@Valid @RequestBody CarteDto request){
         Carte carte = service.create(mapper.toEntity(request));
-        return new ResponseEntity<CarteDto>(mapper.toDto(carte),HttpStatus.OK);
+        return new ResponseEntity<CarteDto>(mapper.toDto(carte),HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

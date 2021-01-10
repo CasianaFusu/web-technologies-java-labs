@@ -3,6 +3,7 @@ package com.proiect.biblioteca.service;
 import com.proiect.biblioteca.domain.Autor;
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.dto.CarteDto;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import com.proiect.biblioteca.repository.AutorRepository;
 import com.proiect.biblioteca.repository.CarteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class AutorService {
     }
 
     public Autor findById(int id){
-        return autorRepository.findById(id).orElseThrow(()-> new RuntimeException("Autorul nu a fost gasit."));
+        return autorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Autor"));
     }
 
     public Autor create(Autor autor){

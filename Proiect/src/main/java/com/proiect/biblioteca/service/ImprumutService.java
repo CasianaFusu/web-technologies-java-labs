@@ -4,6 +4,7 @@ package com.proiect.biblioteca.service;
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Categorie;
 import com.proiect.biblioteca.domain.Imprumut;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
 import org.springframework.stereotype.Service;
@@ -54,7 +55,7 @@ public class ImprumutService {
     }
 
     public Imprumut getById(int id){
-        return imprumutRepository.findById(id).orElseThrow(()-> new RuntimeException("Imprumutul nu a fost gasit."));
+        return imprumutRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Imprumut"));
     }
 
     public int update(Imprumut request){

@@ -2,6 +2,7 @@ package com.proiect.biblioteca.repository;
 
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.dto.CarteDto;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -89,7 +90,7 @@ public class CarteRepository {
 
         int affectedRows = jdbcTemplate.update(sql, id);
         if(affectedRows == 0)
-            throw new RuntimeException("Nu a fost gasita nicio carte cu id-ul " + id);
+            throw new EntityNotFoundException("Carte");
         else return "Cartea a fost stearsa.";
     }
 
@@ -114,7 +115,7 @@ public class CarteRepository {
 
         int affectedRows = jdbcTemplate.update(sql, id);
         if(affectedRows == 0)
-            throw new RuntimeException("Nu a fost gasita nicio carte cu id-ul " + id);
+            throw new EntityNotFoundException("Carte");
         else return affectedRows;
     }
 

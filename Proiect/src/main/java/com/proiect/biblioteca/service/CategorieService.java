@@ -2,6 +2,7 @@ package com.proiect.biblioteca.service;
 
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Categorie;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CategorieService {
     }
 
     public Categorie findById(int id){
-        return categorieRepository.findById(id).orElseThrow(()-> new RuntimeException("Categoria nu a fost gasita."));
+        return categorieRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Categorie"));
     }
 
     public Categorie create(Categorie request){
