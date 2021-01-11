@@ -29,7 +29,7 @@ public class AutorController {
         this.service = autorService;
     }
 
-    @GetMapping()
+    @GetMapping(path="/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AutorDto>> getAll(){
         List<Autor> autori = service.getAll();
         return new ResponseEntity<List<AutorDto>>(mapper.toDto(autori),HttpStatus.OK);
@@ -44,7 +44,7 @@ public class AutorController {
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AutorDto> create(@RequestBody AutorDto request){
         Autor autor = service.create(mapper.toEntity(request));
-        return new ResponseEntity<AutorDto>(mapper.toDto(autor),HttpStatus.OK);
+        return new ResponseEntity<AutorDto>(mapper.toDto(autor),HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -56,6 +56,6 @@ public class AutorController {
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable int id){
         String result = service.delete(id);
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+        return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
     }
 }

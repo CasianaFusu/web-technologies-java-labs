@@ -4,6 +4,7 @@ import com.proiect.biblioteca.dto.ErrorModel;
 import com.proiect.biblioteca.dto.ErrorResponse;
 import com.proiect.biblioteca.exception.BadRequestException;
 import com.proiect.biblioteca.exception.EntityNotFoundException;
+import com.proiect.biblioteca.exception.PropertyNotGoodException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -70,6 +71,20 @@ public class ExceptionControllerAdvice {
                         .errorMessage(errorModelList)
                         .build()
                 , HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+
+    @ExceptionHandler
+    protected  ResponseEntity<ErrorResponse> handlerMethodPropertyNotGood(PropertyNotGoodException ex){
+        ErrorModel errorModel = new ErrorModel("Message", 500, "", ex.getMessage());
+        List<ErrorModel> errorModelList = new ArrayList<ErrorModel>();
+        errorModelList.add(errorModel);
+
+        return new ResponseEntity<>(
+                ErrorResponse.builder()
+                        .errorMessage(errorModelList)
+                        .build()
+                , HttpStatus.BAD_REQUEST);
     }
 }
 

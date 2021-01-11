@@ -2,6 +2,7 @@ package com.proiect.biblioteca.domain;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class Carte {
+
     private int id;
     private String isbn;
     private String nume;

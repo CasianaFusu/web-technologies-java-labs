@@ -19,9 +19,14 @@ public class CarteService {
     private final CarteRepository carteRepository;
     private final ImprumutRepository imprumutRepository;
 
-    public CarteService(CarteRepository carteRepository, ImprumutRepository imprumutRepository){
+    private final CarteValidatorService validatorService;
+
+    public CarteService(CarteRepository carteRepository,
+                        ImprumutRepository imprumutRepository,
+                        CarteValidatorService validatorService){
         this.carteRepository = carteRepository;
         this.imprumutRepository = imprumutRepository;
+        this.validatorService = validatorService;
     }
 
     public List<Carte> getAll(){
@@ -33,17 +38,18 @@ public class CarteService {
     }
 
     public Carte create(Carte request){
+        validatorService.validateRequest(request);
         return carteRepository.create(request);
     }
 
     public int update(Carte request) {
+        validatorService.validateRequest(request);
         return carteRepository.update(request);
     }
 
     public String delete(int id){
-        List<Imprumut> imprumuturi = imprumutRepository.findByIdCarte(id);
-        if(imprumuturi.size() == 0)
-            return carteRepository.delete(id);
-        else return "Exista carti imprumutate.";
+        validatorService.validateDelete(id);
+        carteRepository.delete(id);
+        return "Cartea a fost stearsa cu succes!";
     }
 }

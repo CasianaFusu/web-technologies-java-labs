@@ -26,7 +26,7 @@ public class CarteController {
         this.service = carteService;
     }
 
-    @GetMapping()
+    @GetMapping(path="/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<CarteDto>> getAll(){
         List<Carte> carti = service.getAll();
         return new ResponseEntity<List<CarteDto>>(mapper.toDto(carti),HttpStatus.OK);
@@ -53,6 +53,6 @@ public class CarteController {
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable int id){
         String result = service.delete(id);
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+        return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
     }
 }
