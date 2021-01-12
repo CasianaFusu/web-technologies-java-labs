@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class SolicitareDto {
+    private int idUtilizatorAutentificat;
     private int id;
     private int idImprumut;
     private Date termenAmanare;

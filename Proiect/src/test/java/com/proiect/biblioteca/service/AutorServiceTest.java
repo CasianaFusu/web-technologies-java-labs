@@ -1,13 +1,14 @@
 package com.proiect.biblioteca.service;
 
-import com.proiect.biblioteca.domain.Imprumut;
+import com.proiect.biblioteca.domain.Autor;
+import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.exception.BadRequestException;
 import com.proiect.biblioteca.exception.EntityNotFoundException;
 import com.proiect.biblioteca.exception.PropertyNotGoodException;
+import com.proiect.biblioteca.repository.AutorRepository;
+import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
 import org.apache.commons.lang3.RandomStringUtils;
-import com.proiect.biblioteca.domain.Carte;
-import com.proiect.biblioteca.repository.CarteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,54 +22,48 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CarteServiceTest {
+class AutorServiceTest {
     @Mock
     private CarteRepository carteRepository;
 
     @Mock
-    private ImprumutRepository imprumutRepository;
+    private AutorRepository autorRepository;
 
     @Mock
-    private CarteValidatorService validatorService;
+    private AutorValidatorService validatorService;
 
     @InjectMocks
-    private CarteService service;
-    private Carte expected;
+    private AutorService service;
+    private Autor expected;
 
     @BeforeEach
     void setUp() {
-        expected = Carte.builder()
+        expected = Autor.builder()
                 .id(11)
-                .nume(RandomStringUtils.randomAlphabetic(30))
-                .idAutor(20)
-                .isbn(RandomStringUtils.randomAlphabetic(13))
-                .dataAdaugare(new Date())
-                .idCategorie(12)
-                .stoc(10)
+                .nume(RandomStringUtils.randomAlphabetic(15))
+                .prenume(RandomStringUtils.randomAlphabetic(15))
                 .build();
     }
 
     @Test
     void test_getAll(){
         //Arrange
-        List<Carte> expected = new ArrayList<>();
-        expected.add(Carte.builder()
+        List<Autor> expected = new ArrayList<>();
+        expected.add(Autor.builder()
+                .id(11)
                 .nume(RandomStringUtils.randomAlphabetic(30))
-                .idAutor(20)
-                .isbn(RandomStringUtils.randomAlphabetic(13))
-                .dataAdaugare(new Date())
-                .idCategorie(12)
-                .stoc(10)
+                .prenume(RandomStringUtils.randomAlphabetic(15))
                 .build());
-        when(carteRepository.findAll()).thenReturn(expected);
+
+        when(autorRepository.findAll()).thenReturn(expected);
 
         //Act
 
-        List<Carte> result = service.getAll();
+        List<Autor> result = service.getAll();
 
         //Assert
 
@@ -78,18 +73,15 @@ class CarteServiceTest {
     @Test
     void test_update(){
         //Arange
-        Carte request = Carte.builder()
+        Autor request = Autor.builder()
+                .id(11)
                 .nume(RandomStringUtils.randomAlphabetic(30))
-                .idAutor(20)
-                .isbn(RandomStringUtils.randomAlphabetic(13))
-                .dataAdaugare(new Date())
-                .idCategorie(12)
-                .stoc(10)
+                .prenume(RandomStringUtils.randomAlphabetic(15))
                 .build();
 
         int affectedRows = 1;
         when(validatorService.validateRequest(request)).thenReturn(0);
-        when(carteRepository.update(request)).thenReturn(affectedRows);
+        when(autorRepository.update(request)).thenReturn(affectedRows);
 
         //Act
         int result = service.update(request);
@@ -101,19 +93,17 @@ class CarteServiceTest {
     @Test
     void test_create() {
         //Arange
-        Carte request = Carte.builder()
+        Autor request = Autor.builder()
+                .id(11)
                 .nume(RandomStringUtils.randomAlphabetic(30))
-                .idAutor(20)
-                .isbn(RandomStringUtils.randomAlphabetic(13))
-                .dataAdaugare(new Date())
-                .idCategorie(12)
-                .stoc(10)
+                .prenume(RandomStringUtils.randomAlphabetic(15))
                 .build();
+
         when(validatorService.validateRequest(request)).thenReturn(0);
-        when(carteRepository.create(request)).thenReturn(expected);
+        when(autorRepository.create(request)).thenReturn(expected);
 
         //Act
-        Carte result = service.create(request);
+        Autor result = service.create(request);
 
         //Assert
         assertThat(result).isEqualTo(expected);
@@ -124,10 +114,10 @@ class CarteServiceTest {
         //Arange
 
         int requestId = 10;
-        String expected = "Cartea a fost stearsa.";
+        String expected = "Autorul a fost sters.";
 
         when(validatorService.validateDelete(requestId)).thenReturn(0);
-        when(carteRepository.delete(requestId)).thenReturn(expected);
+        when(autorRepository.delete(requestId)).thenReturn(expected);
 
         //Act
 
@@ -156,19 +146,17 @@ class CarteServiceTest {
     {
         //Arrange
         int requestId = 10;
-        Optional<Carte> expected = Optional.ofNullable(Carte.builder()
+        Optional<Autor> expected = Optional.ofNullable(Autor.builder()
+                .id(11)
                 .nume(RandomStringUtils.randomAlphabetic(30))
-                .idAutor(20)
-                .isbn(RandomStringUtils.randomAlphabetic(13))
-                .dataAdaugare(new Date())
-                .idCategorie(12)
-                .stoc(10)
+                .prenume(RandomStringUtils.randomAlphabetic(15))
                 .build());
-        when(carteRepository.findById(requestId)).thenReturn(expected);
+
+        when(autorRepository.findById(requestId)).thenReturn(expected);
 
         //Act
 
-        Carte result = service.findById(requestId);
+        Autor result = service.findById(requestId);
 
         //Assert
 

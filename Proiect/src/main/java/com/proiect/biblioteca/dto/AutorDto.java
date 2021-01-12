@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class AutorDto {
+
     private int id;
     private String nume;
     private String prenume;

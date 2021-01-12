@@ -1,5 +1,6 @@
 package com.proiect.biblioteca.service;
 
+import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Imprumut;
 import com.proiect.biblioteca.domain.Solicitare;
 import com.proiect.biblioteca.repository.CarteRepository;
@@ -17,6 +18,11 @@ public class SolicitareService {
     public SolicitareService(SolicitareRepository solicitareRepository, ImprumutRepository imprumutRepository){
         this.solicitareRepository = solicitareRepository;
         this.imprumutRepository = imprumutRepository;
+    }
+
+    public Solicitare create(Solicitare request){
+
+        return carteRepository.create(request);
     }
 
     public List<Solicitare> getAll(){

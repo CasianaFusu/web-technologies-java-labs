@@ -32,6 +32,17 @@ public class AutorRepository {
         return jdbcTemplate.query(sql,mapper);
     }
 
+    public Optional<Autor> findByName(String name){
+        String sql = "SELECT * FROM autori WHERE Nume = ?";
+        RowMapper<Autor> mapper = ((resultSet, rowNumber) ->
+                new Autor(resultSet.getInt("id"),
+                        resultSet.getString("nume"),
+                        resultSet.getString("prenume")
+                )
+        );
+        return jdbcTemplate.query(sql, mapper, name).stream().findFirst();
+    }
+
     public Optional<Autor> findById(int id){
         String sql = "SELECT * FROM autori WHERE id = ?";
 

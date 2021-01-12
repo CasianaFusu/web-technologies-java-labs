@@ -113,7 +113,7 @@ class CarteControllerTest {
         when(carteService.getAll()).thenReturn(returned);
 
         // Act
-        mockMvc.perform(get("/carti/getAll")
+        mockMvc.perform(get("/carti")
                 )
                 .andExpect(status().isOk());
 

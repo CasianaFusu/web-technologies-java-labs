@@ -53,7 +53,7 @@ class AutorControllerTest {
         when(autorService.getAll()).thenReturn(returned);
 
         // Act
-        mockMvc.perform(get("/autori/getAll")
+        mockMvc.perform(get("/autori")
         )
                 .andExpect(status().isOk());
 

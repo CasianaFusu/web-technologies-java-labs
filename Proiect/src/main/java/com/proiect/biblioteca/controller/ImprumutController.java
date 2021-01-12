@@ -5,6 +5,7 @@ import com.proiect.biblioteca.dto.CategorieDto;
 import com.proiect.biblioteca.dto.ImprumutDto;
 import com.proiect.biblioteca.mapper.ImprumutMapper;
 import com.proiect.biblioteca.service.ImprumutService;
+import com.proiect.biblioteca.service.UtilizatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,11 +18,14 @@ import java.util.List;
 @RequestMapping("/imprumuturi")
 public class ImprumutController {
     private final ImprumutService service;
+
     private final ImprumutMapper mapper;
 
     @Autowired
-    public ImprumutController(ImprumutService service, ImprumutMapper mapper){
+    public ImprumutController(ImprumutService service,
+                              ImprumutMapper mapper){
         this.service = service;
+
         this.mapper = mapper;
     }
 
@@ -33,8 +37,8 @@ public class ImprumutController {
 
    @PostMapping(path ="/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ImprumutDto> create(@RequestBody ImprumutDto request){
-        Imprumut imprumut = service.create(mapper.toEntity(request));
-        return new ResponseEntity<ImprumutDto>(mapper.toDto(imprumut), HttpStatus.OK);
+        Imprumut imprumut = service.create(mapper.toEntity(request),request.getIdUtilizatorAutentificat());
+        return new ResponseEntity<ImprumutDto>(mapper.toDto(imprumut), HttpStatus.CREATED);
     }
 
     @GetMapping(path ="/{id}")
@@ -43,15 +47,22 @@ public class ImprumutController {
         return new ResponseEntity<ImprumutDto>(mapper.toDto(imprumut), HttpStatus.OK);
     }
 
-    @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> update(@RequestBody ImprumutDto request){
-        int affectedRows = service.update(mapper.toEntity(request));
-        return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
+    @GetMapping(path ="/getImprumuturiNeincheiate")
+    public ResponseEntity<List<ImprumutDto>> getById(){
+        List<Imprumut> imprumut = service.getImprumuturiNeincheiate();
+        return new ResponseEntity<List<ImprumutDto>>(mapper.toDto(imprumut), HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id){
-        String result = service.delete(id);
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+
+    @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> update(@RequestBody ImprumutDto request){
+        int affectedRows = service.update(mapper.toEntity(request),request.getIdUtilizatorAutentificat());
+        return new ResponseEntity<Integer>(affectedRows,HttpStatus.ACCEPTED);
+    }
+
+    @DeleteMapping(path = "/delete/{id}/{idUtilizatorAutentificat}")
+    public ResponseEntity<String> delete(@PathVariable int id,@PathVariable int idUtilizatorAutentificat){
+        String result = service.delete(id,idUtilizatorAutentificat);
+        return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
     }
 }

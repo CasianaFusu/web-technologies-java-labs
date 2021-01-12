@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("autori")
+@RequestMapping("/autori")
 public class AutorController {
     private final AutorMapper mapper;
     private final AutorService service;
@@ -29,7 +29,7 @@ public class AutorController {
         this.service = autorService;
     }
 
-    @GetMapping(path="/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping()
     public ResponseEntity<List<AutorDto>> getAll(){
         List<Autor> autori = service.getAll();
         return new ResponseEntity<List<AutorDto>>(mapper.toDto(autori),HttpStatus.OK);

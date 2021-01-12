@@ -2,15 +2,14 @@ package com.proiect.biblioteca.service;
 
 
 import com.proiect.biblioteca.domain.Carte;
-import com.proiect.biblioteca.domain.Categorie;
 import com.proiect.biblioteca.domain.Imprumut;
+import com.proiect.biblioteca.exception.BadRequestException;
 import com.proiect.biblioteca.exception.EntityNotFoundException;
 import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,63 +22,66 @@ public class ImprumutService {
     private final ImprumutRepository imprumutRepository;
     private final CarteRepository carteRepository;
 
-    public ImprumutService(ImprumutRepository imprumutRepository, CarteRepository carteRepository){
+    private final ImprumutValidatorService validator;
+    private final AuthValidatorService authValidatorService;
+
+    public ImprumutService(ImprumutRepository imprumutRepository,
+                           CarteRepository carteRepository,
+                            ImprumutValidatorService validator,
+                            AuthValidatorService authValidatorService){
         this.imprumutRepository = imprumutRepository;
         this.carteRepository = carteRepository;
+        this.validator = validator;
+        this.authValidatorService = authValidatorService;
     }
 
     public List<Imprumut> getAll(){
         return imprumutRepository.findAll();
     }
 
+    public List<Imprumut> getImprumuturiNeincheiate ()
+    {
+        return imprumutRepository.findAllNeincheiate();
+    }
+
     @Transactional
-    public Imprumut create(Imprumut request){
-        Optional<Carte> carte = carteRepository.findById(request.getIdCarte());
-        //TODO: tranzactie??
-        if(carte.get().getStoc() > 0){
+    public Imprumut create(Imprumut request,int idUtilizatorAutentificat){
+        authValidatorService.ValidateBibliotecar(idUtilizatorAutentificat);
+
+        if (validator.validateRequest(request) ==0)
+        {
             Imprumut imprumut = imprumutRepository.create(request);
             int result = carteRepository.decreaseStocById(request.getIdCarte());
             return imprumut;
         }
-        else throw new RuntimeException("Nu exista carti cu acest id pe stoc");
+        return null;
     }
 
     @Transactional
-    public String delete(int id){
+    public String delete(int id,int idUtilizatorAutentificat){
+        authValidatorService.ValidateBibliotecar(idUtilizatorAutentificat);
         Optional<Imprumut> imprumut = imprumutRepository.findById(id);
 
-        String resultImprumut = imprumutRepository.delete(id);
-        int result = carteRepository.increaseStocById(imprumut.get().getIdCarte());
-
-        return resultImprumut;
+        if(imprumut.isPresent())
+        {
+            String resultImprumut = imprumutRepository.delete(id);
+            int result = carteRepository.increaseStocById(imprumut.get().getIdCarte());
+            return resultImprumut;
+        }
+        else
+            throw new BadRequestException("Nu există acest un imprumut pentru această carte");
     }
 
     public Imprumut getById(int id){
+
         return imprumutRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Imprumut"));
     }
 
-    public int update(Imprumut request){
-        Optional<Imprumut> imprumut = imprumutRepository.findById(request.getId());
+    public int update(Imprumut request,int idUtilizatorAutentificat){
+        authValidatorService.ValidateBibliotecar(idUtilizatorAutentificat);
 
-        if(imprumut.get().isIncheiat() == true)
-            throw new RuntimeException("Imprumutul a fost incheiat.");
-        else {
-            if(request.getDataExpirare().before(request.getDataImprumut())){
-                throw new RuntimeException("Data de expirare mai mica decat data de imprumut");
-            }
+        validator.validateRequestBeforeUpdate(request);
 
-            if(request.getDataImprumut().before(new Date())){
-                throw new RuntimeException("Data de imprumut este o data din viitor.");
-            }
-
-            if (imprumut.get().getIdCarte() != request.getIdCarte()) {
-                Optional<Carte> carte = carteRepository.findById(request.getIdCarte());
-                if (carte.get().getStoc() > 0) {
-                    int resultDecreaseStoc = carteRepository.decreaseStocById(request.getIdCarte());
-                    int resultIncreaseStoc = carteRepository.increaseStocById(imprumut.get().getIdCarte());
-                } else throw new RuntimeException("Nu mai sunt carti pe stoc cu acest id.");
-            }
-        }
 
         return imprumutRepository.update(request);
     }

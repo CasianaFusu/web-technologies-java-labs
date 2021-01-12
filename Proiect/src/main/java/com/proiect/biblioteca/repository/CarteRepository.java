@@ -71,6 +71,21 @@ public class CarteRepository {
         return jdbcTemplate.query(sql, mapper, name).stream().findFirst();
     }
 
+    public List<Carte> findByIdCategorie(int id){
+        String sql = "SELECT * FROM carti WHERE idCategorie = ?";
+        RowMapper<Carte> mapper = ((resultSet, rowNumber) ->
+                new Carte(resultSet.getInt("id"),
+                        resultSet.getString("isbn"),
+                        resultSet.getString("nume"),
+                        resultSet.getInt("idAutor"),
+                        resultSet.getDate("dataAdaugare"),
+                        resultSet.getInt("idCategorie"),
+                        resultSet.getInt("stoc")
+                )
+        );
+        return jdbcTemplate.query(sql, mapper, id);
+    }
+
     public Carte create(Carte carte){
         String sql = "Insert INTO carti VALUES(?,?,?,?,?,?,?)";
         KeyHolder holder = new GeneratedKeyHolder();

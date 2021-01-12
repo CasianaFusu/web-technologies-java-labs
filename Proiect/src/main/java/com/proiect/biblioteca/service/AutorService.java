@@ -16,10 +16,12 @@ import java.util.List;
 public class AutorService {
     private final AutorRepository autorRepository;
     private final CarteRepository carteRepository;
+    private final AutorValidatorService validatorService;
 
-    public AutorService(AutorRepository autorRepository, CarteRepository carteRepository){
+    public AutorService(AutorRepository autorRepository, CarteRepository carteRepository, AutorValidatorService autorValidatorService){
         this.autorRepository = autorRepository;
         this.carteRepository = carteRepository;
+        this.validatorService = autorValidatorService;
     }
 
     public List<Autor> getAll(){
@@ -31,17 +33,17 @@ public class AutorService {
     }
 
     public Autor create(Autor autor){
+        validatorService.validateRequest(autor);
         return autorRepository.create(autor);
     }
 
     public int update(Autor request) {
+        validatorService.validateRequest(request);
         return autorRepository.update(request);
     }
 
     public String delete(int id){
-        List<Carte> carti = carteRepository.findByIdAutor(id);
-        if(carti.size() == 0)
-            return autorRepository.delete(id);
-        else return "Exista carti ale acestui autor.";
+        validatorService.validateDelete((id));
+        return autorRepository.delete(id);
     }
 }

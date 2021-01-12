@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("carti")
+@RequestMapping("/carti")
 public class CarteController {
     private final CarteMapper mapper;
     private final CarteService service;
@@ -26,7 +26,7 @@ public class CarteController {
         this.service = carteService;
     }
 
-    @GetMapping(path="/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping()
     public ResponseEntity<List<CarteDto>> getAll(){
         List<Carte> carti = service.getAll();
         return new ResponseEntity<List<CarteDto>>(mapper.toDto(carti),HttpStatus.OK);

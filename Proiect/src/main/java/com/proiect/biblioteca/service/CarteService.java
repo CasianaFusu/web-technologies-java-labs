@@ -49,7 +49,6 @@ public class CarteService {
 
     public String delete(int id){
         validatorService.validateDelete(id);
-        carteRepository.delete(id);
-        return "Cartea a fost stearsa cu succes!";
+        return carteRepository.delete(id);
     }
 }

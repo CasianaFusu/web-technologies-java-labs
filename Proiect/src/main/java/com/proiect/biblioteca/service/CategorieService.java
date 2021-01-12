@@ -14,10 +14,12 @@ import java.util.List;
 public class CategorieService {
     private final CategorieRepository categorieRepository;
     private final CarteRepository carteRepository;
+    private final CategorieValidatorService validatorService;
 
-    public CategorieService(CategorieRepository categorieRepository, CarteRepository carteRepository){
+    public CategorieService(CategorieValidatorService validatorService, CategorieRepository categorieRepository, CarteRepository carteRepository){
         this.categorieRepository = categorieRepository;
         this.carteRepository = carteRepository;
+        this.validatorService = validatorService;
     }
 
     public List<Categorie> getAll(){
@@ -29,17 +31,17 @@ public class CategorieService {
     }
 
     public Categorie create(Categorie request){
+        validatorService.validateRequest(request);
         return categorieRepository.create(request);
     }
 
     public int update(Categorie request){
+        validatorService.validateRequest(request);
         return categorieRepository.update(request);
     }
 
     public String delete(int id){
-        List<Carte> carti = carteRepository.findByIdAutor(id);
-        if(carti.size() == 0)
-            return categorieRepository.delete(id);
-        else return "Exista carti din aceasta categorie.";
+        validatorService.validateDelete(id);
+        return categorieRepository.delete(id);
     }
 }

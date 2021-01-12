@@ -17,12 +17,16 @@ import java.util.Optional;
 @Service
 public class UtilizatorService {
     private final UtilizatorRepository utilizatorRepository;
+    private final UtilizatorValidatorService validator;
 
-    public UtilizatorService(UtilizatorRepository utilizatorRepository){
+    public UtilizatorService(UtilizatorRepository utilizatorRepository,
+                             UtilizatorValidatorService validator){
         this.utilizatorRepository = utilizatorRepository;
+        this.validator = validator;
     }
 
     public List<Utilizator> getAll(){
+
         return utilizatorRepository.findAll();
     }
 
@@ -31,6 +35,7 @@ public class UtilizatorService {
     }
 
     public Utilizator create(Utilizator request){
+
         return utilizatorRepository.create(request);
     }
 
@@ -43,11 +48,14 @@ public class UtilizatorService {
     }
 
     public Utilizator findByUsername(String username){
+
         return utilizatorRepository.findByUsername(username).get();
     }
     //TODO: verificari
     public String delete(int id){
-            return utilizatorRepository.delete(id);
+
+        validator.validateRequestBeforeDelete(id);
+        return utilizatorRepository.delete(id);
     }
 
 

@@ -43,6 +43,17 @@ public class CategorieRepository {
         return jdbcTemplate.query(sql,mapper,id).stream().findFirst();
     }
 
+    public Optional<Categorie> findByName(String name){
+        String sql = "SELECT * FROM categorii WHERE Nume = ?";
+        RowMapper<Categorie> mapper = ((resultSet, rowNumber) ->
+                new Categorie(resultSet.getInt("id"),
+                        resultSet.getString("nume")
+                )
+        );
+        return jdbcTemplate.query(sql, mapper, name).stream().findFirst();
+    }
+
+
     public Categorie create(Categorie categorie){
         String sql = "Insert INTO categorii VALUES(?,?)";
         KeyHolder holder = new GeneratedKeyHolder();

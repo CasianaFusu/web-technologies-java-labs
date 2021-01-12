@@ -4,6 +4,7 @@ import com.proiect.biblioteca.dto.ErrorModel;
 import com.proiect.biblioteca.dto.ErrorResponse;
 import com.proiect.biblioteca.exception.BadRequestException;
 import com.proiect.biblioteca.exception.EntityNotFoundException;
+import com.proiect.biblioteca.exception.NotAuthorizedException;
 import com.proiect.biblioteca.exception.PropertyNotGoodException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,20 @@ public class ExceptionControllerAdvice {
                         .errorMessage(errorModelList)
                         .build()
                 , HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler
+    protected ResponseEntity<ErrorResponse> handleNotAuthorized(NotAuthorizedException ex) {
+        ErrorModel errorModel = new ErrorModel("Message", 403, "", ex.getMessage());
+        List<ErrorModel> errorModelList = new ArrayList<ErrorModel>();
+        errorModelList.add(errorModel);
+
+        return new ResponseEntity<>(
+                ErrorResponse.builder()
+                        .errorMessage(errorModelList)
+                        .build()
+                , HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler

@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class ImprumutDto {
+    public int idUtilizatorAutentificat;
     private int id;
     private int idUtilizator;
     private int idCarte;

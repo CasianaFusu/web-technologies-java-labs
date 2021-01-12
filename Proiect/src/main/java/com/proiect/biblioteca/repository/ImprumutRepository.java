@@ -44,6 +44,36 @@ public class ImprumutRepository {
         );
         return jdbcTemplate.query(sql,mapper);
     }
+    public List<Imprumut> findAllNeincheiate(){
+        String sql = "SELECT * FROM imprumuturi WHERE incheiat = false";
+
+        RowMapper<Imprumut> mapper = ((resultSet, rowNumber) ->
+                new Imprumut(resultSet.getInt("id"),
+                        resultSet.getInt("idUtilizator"),
+                        resultSet.getInt("idCarte"),
+                        resultSet.getDate("dataImprumut"),
+                        resultSet.getDate("dataExpirare"),
+                        resultSet.getBoolean("incheiat")
+                )
+        );
+        return jdbcTemplate.query(sql,mapper);
+    }
+
+
+    public List<Imprumut> findAllByIdUtilizator(int id){
+        String sql = "SELECT * FROM imprumuturi WHERE idUtilizator = ? AND incheiat = true";
+
+        RowMapper<Imprumut> mapper = ((resultSet, rowNumber) ->
+                new Imprumut(resultSet.getInt("id"),
+                        resultSet.getInt("idUtilizator"),
+                        resultSet.getInt("idCarte"),
+                        resultSet.getDate("dataImprumut"),
+                        resultSet.getDate("dataExpirare"),
+                        resultSet.getBoolean("incheiat")
+                )
+        );
+        return jdbcTemplate.query(sql,mapper,id);
+    }
 
     public Imprumut create(Imprumut imprumut){
         String sql = "Insert INTO imprumuturi VALUES(?,?,?,?,?,?)";

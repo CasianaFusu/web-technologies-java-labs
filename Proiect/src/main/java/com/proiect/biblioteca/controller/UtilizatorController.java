@@ -18,7 +18,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("utilizatori")
+@RequestMapping("/utilizatori")
 public class UtilizatorController {
     private final UtilizatorMapper mapper;
     private final UtilizatorService service;
@@ -52,13 +52,13 @@ public class UtilizatorController {
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> update(@Valid @RequestBody UtilizatorDto request){
         int affectedRows = service.update(mapper.toEntity(request));
-        return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
+        return new ResponseEntity<Integer>(affectedRows,HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(path = "/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable int id){
         String result = service.delete(id);
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+        return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
     }
 
     @PutMapping(path = "/activate/{id}")

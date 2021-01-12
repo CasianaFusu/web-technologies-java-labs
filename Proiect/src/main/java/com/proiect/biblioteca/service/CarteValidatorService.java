@@ -26,11 +26,8 @@ public class CarteValidatorService {
     }
 
     public int validateRequest(Carte request) {
-
-
         if (request.getDataAdaugare().before( new Date())){
             throw new PropertyNotGoodException("DataAdaugare","e anterioara zilei de azi!");
-
         }
         if (request.getStoc()<0){
             throw new PropertyNotGoodException("Stoc","este mai mic decat zero!");
@@ -53,10 +50,10 @@ public class CarteValidatorService {
    {
        List<Imprumut> imprumuturi = imprumutRepository.findByIdCarte(requestId);
        var carte = carteRepository.findById(requestId);
-        //ajunge aici carte cu valoare pentru ca daca nu ne-ar fi dat repository eroare
+
        if(imprumuturi.size()>0)
        {
-           throw new BadRequestException("Exista imprumuturi pentru cartea " +carte.get().getNume());
+           throw new BadRequestException("Exista imprumuturi pentru cartea " + carte.get().getNume());
        }
        return 0;
    }
