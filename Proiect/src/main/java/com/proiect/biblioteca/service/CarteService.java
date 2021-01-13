@@ -37,9 +37,17 @@ public class CarteService {
         return carteRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Carte"));
     }
 
+    public List<Carte> getCartiByAutor(int id){
+        return carteRepository.findByIdAutor(id);
+    }
+
     public Carte create(Carte request){
         validatorService.validateRequest(request);
         return carteRepository.create(request);
+    }
+
+    public Carte getCarteByName(String request){
+        return carteRepository.findByName(request).orElseThrow(()-> new EntityNotFoundException("Carte"));
     }
 
     public int update(Carte request) {

@@ -41,12 +41,10 @@ public class UtilizatorController {
         return new ResponseEntity<UtilizatorDto>(mapper.toDto(utilizator),HttpStatus.OK);
     }
 
-
-
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UtilizatorDto> create(@Valid @RequestBody UtilizatorDto request){
         Utilizator utilizator = service.create(mapper.toEntity(request));
-        return new ResponseEntity<UtilizatorDto>(mapper.toDto(utilizator),HttpStatus.OK);
+        return new ResponseEntity<UtilizatorDto>(mapper.toDto(utilizator),HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

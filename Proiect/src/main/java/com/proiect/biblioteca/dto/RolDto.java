@@ -5,15 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class SolicitareDto {
+public class RolDto {
     private int id;
-    private int idImprumut;
-    private Date termenAmanare;
-    private Boolean aprobat;
+    private String nume;
 }

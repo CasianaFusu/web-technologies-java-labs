@@ -170,4 +170,55 @@ class CarteControllerTest {
         // Assert
     }
 
+
+    @Test
+    void test_getCartiByAutor() throws Exception {
+        // Arrange
+        int  request = 10;
+
+        List<Carte> returned =  new ArrayList<Carte>( );
+        returned.add(Carte.builder()
+                .id(11)
+                .nume(RandomStringUtils.randomAlphabetic(30))
+                .idAutor(20)
+                .isbn(RandomStringUtils.randomAlphabetic(13))
+                .dataAdaugare(new Date())
+                .idCategorie(12)
+                .stoc(10)
+                .build());
+
+        when(carteService.getCartiByAutor(request)).thenReturn(returned);
+
+        // Act
+        mockMvc.perform(get("/carti/getbyauthor/"+request)
+                )
+                .andExpect(status().isOk());
+
+        // Assert
+    }
+    @Test
+    void test_getCarteByName() throws Exception {
+        // Arrange
+        String  request = RandomStringUtils.randomAlphabetic(20);
+
+        Carte returned = Carte.builder()
+                .id(11)
+                .nume(RandomStringUtils.randomAlphabetic(30))
+                .idAutor(20)
+                .isbn(RandomStringUtils.randomAlphabetic(13))
+                .dataAdaugare(new Date())
+                .idCategorie(12)
+                .stoc(10)
+                .build();
+
+        when(carteService.getCarteByName(request)).thenReturn(returned);
+
+        // Act
+        mockMvc.perform(get("/carti/getbyname/"+request))
+                .andExpect(status().isOk());
+
+        // Assert
+    }
+
+
 }

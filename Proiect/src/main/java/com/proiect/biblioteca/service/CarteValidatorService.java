@@ -1,10 +1,13 @@
 package com.proiect.biblioteca.service;
 
+import com.proiect.biblioteca.domain.Autor;
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Imprumut;
 import com.proiect.biblioteca.exception.BadRequestException;
 import com.proiect.biblioteca.exception.PropertyNotGoodException;
+import com.proiect.biblioteca.repository.AutorRepository;
 import com.proiect.biblioteca.repository.CarteRepository;
+import com.proiect.biblioteca.repository.CategorieRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +20,18 @@ public class CarteValidatorService {
 
     private final ImprumutRepository imprumutRepository;
     private final CarteRepository carteRepository;
+    private final AutorRepository autorRepository;
+    private final CategorieRepository categorieRepository;
 
     @Autowired
-    public CarteValidatorService( ImprumutRepository imprumutRepository,
-                                  CarteRepository carteRepository) {
+    public CarteValidatorService(ImprumutRepository imprumutRepository,
+                                 CarteRepository carteRepository,
+                                 AutorRepository autorRepository,
+                                 CategorieRepository categorieRepository) {
         this.imprumutRepository = imprumutRepository;
         this.carteRepository = carteRepository;
+        this.autorRepository = autorRepository;
+        this.categorieRepository = categorieRepository;
     }
 
     public int validateRequest(Carte request) {
@@ -43,6 +52,20 @@ public class CarteValidatorService {
         {
             throw new PropertyNotGoodException("Nume","mai exista o carte cu numele asta!");
         }
+
+        var autor = autorRepository.findById(request.getIdAutor());
+        if(!autor.isPresent())
+        {
+            throw new PropertyNotGoodException("idAutor", "Nu exista acest autor in baza de date");
+        }
+
+        var categorie = categorieRepository.findById(request.getIdCategorie());
+        if(!categorie.isPresent())
+        {
+            throw new PropertyNotGoodException("idCategorie", "Nu exista acesta categorie in baza de date");
+        }
+
+
         return 0;
    }
 

@@ -35,7 +35,6 @@ public class UtilizatorService {
     }
 
     public Utilizator create(Utilizator request){
-
         return utilizatorRepository.create(request);
     }
 
@@ -48,15 +47,11 @@ public class UtilizatorService {
     }
 
     public Utilizator findByUsername(String username){
-
         return utilizatorRepository.findByUsername(username).get();
     }
-    //TODO: verificari
-    public String delete(int id){
 
+    public String delete(int id){
         validator.validateRequestBeforeDelete(id);
         return utilizatorRepository.delete(id);
     }
-
-
 }

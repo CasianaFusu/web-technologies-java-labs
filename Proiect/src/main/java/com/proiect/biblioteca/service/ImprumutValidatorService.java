@@ -7,6 +7,7 @@ import com.proiect.biblioteca.exception.NotAuthorizedException;
 import com.proiect.biblioteca.exception.PropertyNotGoodException;
 import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
+import com.proiect.biblioteca.repository.UtilizatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,16 @@ public class ImprumutValidatorService {
 
     private final ImprumutRepository imprumutRepository;
     private final CarteRepository carteRepository;
+    private final UtilizatorRepository utilizatorRepository;
 
     @Autowired
     public ImprumutValidatorService(ImprumutRepository imprumutRepository,
                                     CarteRepository carteRepository,
-                                    UtilizatorService utilizatorService) {
+                                    UtilizatorService utilizatorService,
+                                    UtilizatorRepository utilizatorRepository) {
         this.imprumutRepository = imprumutRepository;
         this.carteRepository = carteRepository;
+        this.utilizatorRepository = utilizatorRepository;
 
     }
 
@@ -47,6 +51,18 @@ public class ImprumutValidatorService {
         if (imprumut.get().isIncheiat() == true)
             throw new RuntimeException("Imprumutul a fost incheiat.");
         else {
+            var carteCheck = carteRepository.findById(request.getIdCarte());
+            if(!carteCheck.isPresent())
+            {
+                throw new PropertyNotGoodException("idCarte", "Nu exista aceasta carte in baza de date");
+            }
+
+            var utilizator = utilizatorRepository.findById(request.getIdUtilizator());
+            if(!utilizator.isPresent())
+            {
+                throw new PropertyNotGoodException("idUtilizator", "Nu exista aceast utilizator in baza de date");
+            }
+
             if (request.getDataExpirare().before(request.getDataImprumut())) {
                 throw new RuntimeException("Data de expirare mai mica decat data de imprumut");
             }

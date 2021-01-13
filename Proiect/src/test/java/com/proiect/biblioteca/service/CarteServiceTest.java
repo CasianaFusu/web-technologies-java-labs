@@ -37,6 +37,7 @@ class CarteServiceTest {
 
     @InjectMocks
     private CarteService service;
+
     private Carte expected;
 
     @BeforeEach
@@ -164,6 +165,7 @@ class CarteServiceTest {
                 .idCategorie(12)
                 .stoc(10)
                 .build());
+
         when(carteRepository.findById(requestId)).thenReturn(expected);
 
         //Act

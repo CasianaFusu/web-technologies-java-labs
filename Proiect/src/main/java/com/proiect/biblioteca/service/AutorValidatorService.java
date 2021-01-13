@@ -36,7 +36,7 @@ public class AutorValidatorService {
             throw new PropertyNotGoodException("Prenume", "contine caractere ilegale!");
         }
 
-        var autor = autorRepository.findByName(request.getNume());
+        var autor = autorRepository.findByName(request.getNume(), request.getPrenume());
         if(autor.isPresent())
         {
             throw new PropertyNotGoodException("Nume","mai exista un autor cu acest nume!");
@@ -47,11 +47,10 @@ public class AutorValidatorService {
     public int validateDelete(int requestId)
     {
         List<Carte> carti = carteRepository.findByIdAutor(requestId);
-        var carte = carteRepository.findById(requestId);
 
         if(carti.size()>0)
         {
-            throw new BadRequestException("Exista carti cu acest autor." + carte.get().getNume());
+            throw new BadRequestException("Exista carti cu acest autor.");
         }
         return 0;
     }

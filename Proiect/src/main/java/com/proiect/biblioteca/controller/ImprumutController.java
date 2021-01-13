@@ -53,7 +53,6 @@ public class ImprumutController {
         return new ResponseEntity<List<ImprumutDto>>(mapper.toDto(imprumut), HttpStatus.OK);
     }
 
-
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> update(@RequestBody ImprumutDto request){
         int affectedRows = service.update(mapper.toEntity(request),request.getIdUtilizatorAutentificat());

@@ -38,6 +38,18 @@ public class CarteController {
         return new ResponseEntity<CarteDto>(mapper.toDto(carte),HttpStatus.OK);
     }
 
+    @GetMapping(path = "/getbyauthor/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<CarteDto>> getCartiByAutor(@PathVariable int id){
+        List<Carte> carti = service.getCartiByAutor(id);
+        return new ResponseEntity<List<CarteDto>>(mapper.toDto(carti),HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/getbyname/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CarteDto> getCarteByName(@PathVariable String name){
+        Carte carte = service.getCarteByName(name);
+        return new ResponseEntity<CarteDto>(mapper.toDto(carte),HttpStatus.OK);
+    }
+
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CarteDto> create(@Valid @RequestBody CarteDto request){
         Carte carte = service.create(mapper.toEntity(request));

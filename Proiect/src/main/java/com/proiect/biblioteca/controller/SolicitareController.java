@@ -35,7 +35,14 @@ public class SolicitareController {
 
     @PostMapping(path ="/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SolicitareDto> create(@RequestBody SolicitareDto request){
-        Solicitare solicitare = service.create(mapper.toEntity(request),request.getIdUtilizatorAutentificat());
+        Solicitare solicitare = service.create(mapper.toEntity(request));
+        return new ResponseEntity<SolicitareDto>(mapper.toDto(solicitare), HttpStatus.CREATED);
+    }
+
+
+    @PostMapping(path ="/aproba/{id}/{idUtilizatorAutentificat}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<SolicitareDto> create(@PathVariable int id,@PathVariable int idUtilizatorAutentificat){
+        Solicitare solicitare = service.aproba(id,idUtilizatorAutentificat);
         return new ResponseEntity<SolicitareDto>(mapper.toDto(solicitare), HttpStatus.CREATED);
     }
 }

@@ -20,7 +20,6 @@ public class UtilizatorValidatorService {
         this.imprumutRepository = imprumutRepository;
     }
 
-
     public int validateRequestBeforeDelete(int id){
 
         var result = imprumutRepository.findAllByIdUtilizator(id);
@@ -30,7 +29,4 @@ public class UtilizatorValidatorService {
         }
         return 0;
     }
-
-
-
 }

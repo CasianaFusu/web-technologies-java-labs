@@ -38,6 +38,22 @@ public class UtilizatorRepository {
         return jdbcTemplate.query(sql,mapper);
     }
 
+    public List<Utilizator> findAllByRol(int idRol){
+        String sql = "SELECT * FROM utilizatori where idRol = ?";
+        RowMapper<Utilizator> mapper = ((resultSet, rowNumber) ->
+                new Utilizator(resultSet.getInt("id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("nume"),
+                        resultSet.getString("prenume"),
+                        resultSet.getString("email"),
+                        resultSet.getString("parola"),
+                        resultSet.getBoolean("activat"),
+                        resultSet.getInt("idRol")
+                )
+        );
+        return jdbcTemplate.query(sql,mapper,idRol);
+    }
+
     public Optional<Utilizator> findById(int id){
         String sql = "SELECT * FROM utilizatori WHERE id = ?";
         RowMapper<Utilizator> mapper = ((resultSet, rowNumber) ->
