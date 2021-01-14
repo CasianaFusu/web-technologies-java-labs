@@ -50,7 +50,7 @@ public class AutorValidatorService {
 
         if(carti.size()>0)
         {
-            throw new BadRequestException("Exista carti cu acest autor.");
+            throw new BadRequestException("Exista carti cu acest autor!");
         }
         return 0;
     }

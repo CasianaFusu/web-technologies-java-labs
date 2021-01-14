@@ -14,9 +14,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-//TODO: este bine cum am facut la stocul 0?
-//TODO: la update poate face update la nr de carti imprumutate??
-//TODO: dataexpirare dataterminare de verificat
 @Service
 public class ImprumutService {
     private final ImprumutRepository imprumutRepository;
@@ -45,7 +42,7 @@ public class ImprumutService {
     }
 
     @Transactional
-    public Imprumut create(Imprumut request,int idUtilizatorAutentificat){
+    public Imprumut create(Imprumut request, int idUtilizatorAutentificat){
         authValidatorService.ValidateBibliotecar(idUtilizatorAutentificat);
 
         if (validator.validateRequest(request) ==0)
@@ -64,12 +61,14 @@ public class ImprumutService {
 
         if(imprumut.isPresent())
         {
+            if(imprumut.get().isIncheiat() == false) {
+                int result = carteRepository.increaseStocById(imprumut.get().getIdCarte());
+            }
             String resultImprumut = imprumutRepository.delete(id);
-            int result = carteRepository.increaseStocById(imprumut.get().getIdCarte());
             return resultImprumut;
         }
         else
-            throw new BadRequestException("Nu există acest un imprumut pentru această carte");
+            throw new EntityNotFoundException("Imprumut");
     }
 
     public Imprumut getById(int id){
@@ -79,10 +78,7 @@ public class ImprumutService {
 
     public int update(Imprumut request,int idUtilizatorAutentificat){
         authValidatorService.ValidateBibliotecar(idUtilizatorAutentificat);
-
         validator.validateRequestBeforeUpdate(request);
-
-
         return imprumutRepository.update(request);
     }
 }

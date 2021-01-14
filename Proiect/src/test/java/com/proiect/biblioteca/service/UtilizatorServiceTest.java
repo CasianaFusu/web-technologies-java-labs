@@ -86,6 +86,29 @@ class UtilizatorServiceTest {
     }
 
     @Test
+    void test_update_when_throws_exception(){
+        //Arange
+        Utilizator request = Utilizator.builder()
+                .id(11)
+                .username(RandomStringUtils.randomAlphabetic(30))
+                .nume(RandomStringUtils.randomAlphabetic(30))
+                .prenume(RandomStringUtils.randomAlphabetic(30))
+                .email(RandomStringUtils.randomAlphabetic(30))
+                .parola(RandomStringUtils.randomAlphabetic(30))
+                .activat(false)
+                .idRol(2)
+                .build();
+
+        when(validator.validateRequest(request)).thenThrow(BadRequestException.class);
+
+        //Act
+
+        //Assert
+        assertThrows(BadRequestException.class, ()->service.update(request));
+    }
+
+
+    @Test
     void test_update(){
         //Arange
         Utilizator request = Utilizator.builder()
@@ -101,6 +124,7 @@ class UtilizatorServiceTest {
 
         int affectedRows = 1;
 
+        when(validator.validateRequest(request)).thenReturn(0);
         when(utilizatorRepository.update(request)).thenReturn(affectedRows);
 
         //Act
@@ -109,6 +133,29 @@ class UtilizatorServiceTest {
         //Assert
         assertThat(result).isEqualTo(affectedRows);
     }
+
+    @Test
+    void test_create_when_throws_exception(){
+        //Arange
+        Utilizator request = Utilizator.builder()
+                .id(11)
+                .username(RandomStringUtils.randomAlphabetic(30))
+                .nume(RandomStringUtils.randomAlphabetic(30))
+                .prenume(RandomStringUtils.randomAlphabetic(30))
+                .email(RandomStringUtils.randomAlphabetic(30))
+                .parola(RandomStringUtils.randomAlphabetic(30))
+                .activat(false)
+                .idRol(2)
+                .build();
+
+        when(validator.validateRequest(request)).thenThrow(BadRequestException.class);
+
+        //Act
+
+        //Assert
+        assertThrows(BadRequestException.class, ()->service.create(request));
+    }
+
 
     @Test
     void test_create() {
@@ -123,6 +170,7 @@ class UtilizatorServiceTest {
                 .idRol(2)
                 .build();
 
+        when(validator.validateRequest(request)).thenReturn(0);
         when(utilizatorRepository.create(request)).thenReturn(expected);
 
         //Act
@@ -165,11 +213,27 @@ class UtilizatorServiceTest {
     }
 
     @Test
+    void test_activate_when_throws_exception(){
+        //Arrange
+        int requestId = 10;
+        int affectedRows = 1;
+
+        when(validator.validateRequestActivare(requestId)).thenThrow(BadRequestException.class);
+
+        //Act
+
+        //Assert
+        assertThrows(BadRequestException.class, ()->service.activate(requestId));
+    }
+
+
+    @Test
     void test_activate(){
         //Arrange
         int requestId = 10;
         int affectedRows = 1;
 
+        when(validator.validateRequestActivare(requestId)).thenReturn(0);
         when(utilizatorRepository.activate(requestId)).thenReturn(affectedRows);
 
         //Act

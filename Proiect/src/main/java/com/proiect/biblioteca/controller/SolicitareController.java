@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class SolicitareController {
 
 
     @PostMapping(path ="/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SolicitareDto> create(@RequestBody SolicitareDto request){
+    public ResponseEntity<SolicitareDto> create(@Valid @RequestBody SolicitareDto request){
         Solicitare solicitare = service.create(mapper.toEntity(request));
         return new ResponseEntity<SolicitareDto>(mapper.toDto(solicitare), HttpStatus.CREATED);
     }

@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,13 +43,13 @@ public class AutorController {
     }
 
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AutorDto> create(@RequestBody AutorDto request){
+    public ResponseEntity<AutorDto> create(@Valid @RequestBody AutorDto request){
         Autor autor = service.create(mapper.toEntity(request));
         return new ResponseEntity<AutorDto>(mapper.toDto(autor),HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> update(@RequestBody AutorDto request){
+    public ResponseEntity<Integer> update(@Valid @RequestBody AutorDto request){
         int affectedRows = service.update(mapper.toEntity(request));
         return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
     }

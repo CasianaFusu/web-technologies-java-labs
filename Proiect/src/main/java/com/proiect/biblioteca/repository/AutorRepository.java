@@ -2,6 +2,7 @@ package com.proiect.biblioteca.repository;
 
 import com.proiect.biblioteca.domain.Autor;
 import com.proiect.biblioteca.domain.Carte;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -76,7 +77,7 @@ public class AutorRepository {
         String sql = "UPDATE autori SET nume = ?, prenume = ? WHERE id = ?";
         int affectedRows = jdbcTemplate.update(sql, autor.getNume(), autor.getPrenume(), autor.getId());
         if (affectedRows == 0) {
-            throw new RuntimeException("Nu a fost gasita niciun autor cu id-ul " + autor.getId());
+            throw new EntityNotFoundException("Nu a fost gasit niciun autor cu id-ul " + autor.getId());
         }
         else return affectedRows;
     }
@@ -86,7 +87,7 @@ public class AutorRepository {
 
         int affectedRows = jdbcTemplate.update(sql, id);
         if(affectedRows == 0)
-            throw new RuntimeException("Nu a fost gasit niciun autor cu id-ul " + id);
+            throw new EntityNotFoundException("Autor");
         else return "Autorul a fost sters.";
     }
 }

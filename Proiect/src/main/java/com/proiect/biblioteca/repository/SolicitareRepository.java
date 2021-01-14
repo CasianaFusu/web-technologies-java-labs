@@ -4,6 +4,7 @@ import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Imprumut;
 import com.proiect.biblioteca.domain.Solicitare;
 import com.proiect.biblioteca.exception.BadRequestException;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -72,7 +73,7 @@ public class SolicitareRepository {
         String sql = "UPDATE solicitari SET aprobat = true WHERE id = ?";
         int affectedRows = jdbcTemplate.update(sql, id);
         if (affectedRows == 0) {
-            throw new BadRequestException("Nu a fost gasita nicio solicitare cu id-ul " + id);
+            throw new EntityNotFoundException("Imprumut");
         }
         var modifiedSolicitare = findById(id);
         return modifiedSolicitare.get();

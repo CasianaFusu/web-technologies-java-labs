@@ -60,7 +60,7 @@ public class ImprumutController {
     }
 
     @DeleteMapping(path = "/delete/{id}/{idUtilizatorAutentificat}")
-    public ResponseEntity<String> delete(@PathVariable int id,@PathVariable int idUtilizatorAutentificat){
+    public ResponseEntity<String> delete(@PathVariable(name = "id") int id,@PathVariable(name = "idUtilizatorAutentificat") int idUtilizatorAutentificat){
         String result = service.delete(id,idUtilizatorAutentificat);
         return new ResponseEntity<String>(result, HttpStatus.ACCEPTED);
     }

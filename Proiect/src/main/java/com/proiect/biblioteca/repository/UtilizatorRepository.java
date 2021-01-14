@@ -92,8 +92,8 @@ public class UtilizatorRepository {
     }
 
     public int update(Utilizator utilizator) {
-        String sql = "UPDATE utilizatori SET username = ?, nume = ?, prenume = ?, email = ?, parola = ?, isActivat = ?, idRol = ? WHERE id = ?";
-        int affectedRows = jdbcTemplate.update(sql, utilizator.getUsername(), utilizator.getNume(), utilizator.getPrenume(), utilizator.getEmail(),utilizator.getParola(),utilizator.isActivat(), utilizator.getIdRol());
+        String sql = "UPDATE utilizatori SET username = ?, nume = ?, prenume = ?, email = ?, parola = ?, idRol = ? WHERE id = ?";
+        int affectedRows = jdbcTemplate.update(sql, utilizator.getUsername(), utilizator.getNume(), utilizator.getPrenume(), utilizator.getEmail(),utilizator.getParola(), utilizator.getIdRol(), utilizator.getId());
         if (affectedRows == 0) {
             throw new EntityNotFoundException("Utilizator");
         }
@@ -134,5 +134,3 @@ public class UtilizatorRepository {
         else return "Utilizatorul a fost sters.";
     }
 }
-
-//todo: activare cont

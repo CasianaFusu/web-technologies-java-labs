@@ -2,6 +2,7 @@ package com.proiect.biblioteca.repository;
 
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Categorie;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -73,7 +74,7 @@ public class CategorieRepository {
         String sql = "UPDATE categorii SET nume = ? WHERE id = ?";
         int affectedRows = jdbcTemplate.update(sql, categorie.getNume(), categorie.getId());
         if (affectedRows == 0) {
-            throw new RuntimeException("Nu a fost gasita nicio categorie cu id-ul " + categorie.getId());
+            throw new EntityNotFoundException("Categorie");
         }
         else return affectedRows;
     }
@@ -83,7 +84,7 @@ public class CategorieRepository {
 
         int affectedRows = jdbcTemplate.update(sql, id);
         if(affectedRows == 0)
-            throw new RuntimeException("Nu a fost gasita nicio categorie cu id-ul " + id);
+            throw new EntityNotFoundException("Categorie");
         else return "Categoria a fost stearsa.";
     }
 }

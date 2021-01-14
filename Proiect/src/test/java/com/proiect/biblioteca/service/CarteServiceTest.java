@@ -89,7 +89,7 @@ class CarteServiceTest {
                 .build();
 
         int affectedRows = 1;
-        when(validatorService.validateRequest(request)).thenReturn(0);
+        when(validatorService.validateUpdateRequest(request)).thenReturn(0);
         when(carteRepository.update(request)).thenReturn(affectedRows);
 
         //Act

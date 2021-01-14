@@ -35,14 +35,17 @@ public class UtilizatorService {
     }
 
     public Utilizator create(Utilizator request){
+        validator.validateRequest(request);
         return utilizatorRepository.create(request);
     }
 
     public int update(Utilizator request) {
+        validator.validateRequest(request);
         return utilizatorRepository.update(request);
     }
 
     public int activate(int id){
+        validator.validateRequestActivare(id);
         return utilizatorRepository.activate(id);
     }
 

@@ -3,24 +3,20 @@ package com.proiect.biblioteca.repository;
 import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Categorie;
 import com.proiect.biblioteca.domain.Imprumut;
+import com.proiect.biblioteca.domain.Solicitare;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-// TODO: Repository de la Carte o functie scadere cost in care sa primeasca id-ul cartii la create Imprumut
-// TODO: La Delete imprumut, sa imi creasca stocul
-// TODO: si daca il bifeaza in incheiat iarasi creste stocul
-// TODO: in loc sa aduc ID Utilizator, sa aduc numele lui
-// TODO: in loc sa aduc ID Carte, sa aduc numele ei
-// TODO: ce se intampla daca nu exista cartea pt care dau idul (cum tratez mesajul ala)
 
 @Repository
 public class ImprumutRepository {
@@ -124,12 +120,22 @@ public class ImprumutRepository {
         return jdbcTemplate.query(sql,mapper, idCarte);
     }
 
+    public int changeTermenExpirareImprumut(int id, Date data){
+        String sql = "UPDATE imprumuturi SET  dataExpirare = ? WHERE id = ?";
+
+        int affectedRows = jdbcTemplate.update(sql, data, id);
+        if (affectedRows == 0) {
+            throw new EntityNotFoundException("Imprumut");
+        }
+        else return affectedRows;
+    }
+
     public String delete(int id){
         String sql = "DELETE FROM imprumuturi WHERE id = ?";
 
         int affectedRows = jdbcTemplate.update(sql, id);
         if(affectedRows == 0)
-            throw new RuntimeException("Nu a fost gasit niciun imprumut cu id-ul " + id);
+            throw new EntityNotFoundException("Imprumut");
         else return "Imprumutul a fost sters.";
     }
 

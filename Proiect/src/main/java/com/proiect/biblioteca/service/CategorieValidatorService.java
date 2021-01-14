@@ -25,7 +25,7 @@ public class CategorieValidatorService {
     }
 
     public int validateRequest(Categorie request) {
-        String pattern = "[A-Za-z]*";
+        String pattern = "[A-Za-z0-9]*";
 
         if (!request.getNume().matches(pattern)) {
             throw new PropertyNotGoodException("Nume categorie", "contine caractere ilegale!");

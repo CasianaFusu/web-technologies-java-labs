@@ -2,6 +2,7 @@ package com.proiect.biblioteca.repository;
 
 import com.proiect.biblioteca.domain.Categorie;
 import com.proiect.biblioteca.domain.Rol;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -73,7 +74,7 @@ public class RolRepository {
         String sql = "UPDATE roluri SET nume = ? WHERE id = ?";
         int affectedRows = jdbcTemplate.update(sql, rol.getNume(), rol.getId());
         if (affectedRows == 0) {
-            throw new RuntimeException("Nu a fost gasit niciun rol cu id-ul " + rol.getId());
+            throw new EntityNotFoundException("Rol");
         }
         else return affectedRows;
     }
@@ -83,7 +84,7 @@ public class RolRepository {
 
         int affectedRows = jdbcTemplate.update(sql, id);
         if(affectedRows == 0)
-            throw new RuntimeException("Nu a fost gasita niciun rol cu id-ul " + id);
+            throw new EntityNotFoundException("Rol");
         else return "Rolul a fost sters.";
     }
 }

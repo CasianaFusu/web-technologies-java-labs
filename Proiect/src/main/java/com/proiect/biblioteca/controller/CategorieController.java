@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,13 +40,13 @@ public class CategorieController {
     }
 
     @PostMapping(path = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CategorieDto> create(@RequestBody CategorieDto request){
+    public ResponseEntity<CategorieDto> create(@Valid @RequestBody CategorieDto request){
         Categorie categorie = service.create(mapper.toEntity(request));
         return new ResponseEntity<CategorieDto>(mapper.toDto(categorie),HttpStatus.OK);
     }
 
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> update(@RequestBody CategorieDto request){
+    public ResponseEntity<Integer> update(@Valid @RequestBody CategorieDto request){
         int affectedRows = service.update(mapper.toEntity(request));
         return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
     }

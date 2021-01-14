@@ -36,7 +36,7 @@ public class CarteValidatorService {
 
     public int validateRequest(Carte request) {
         if (request.getDataAdaugare().before( new Date())){
-            throw new PropertyNotGoodException("DataAdaugare","e anterioara zilei de azi!");
+            throw new PropertyNotGoodException("DataAdaugare","este anterioara zilei de azi!");
         }
         if (request.getStoc()<0){
             throw new PropertyNotGoodException("Stoc","este mai mic decat zero!");
@@ -56,17 +56,48 @@ public class CarteValidatorService {
         var autor = autorRepository.findById(request.getIdAutor());
         if(!autor.isPresent())
         {
-            throw new PropertyNotGoodException("idAutor", "Nu exista acest autor in baza de date");
+            throw new PropertyNotGoodException("idAutor", "Nu exista acest autor in baza de date!");
         }
 
         var categorie = categorieRepository.findById(request.getIdCategorie());
         if(!categorie.isPresent())
         {
-            throw new PropertyNotGoodException("idCategorie", "Nu exista acesta categorie in baza de date");
+            throw new PropertyNotGoodException("idCategorie", "Nu exista acesta categorie in baza de date!");
         }
 
 
         return 0;
+   }
+
+   public int validateUpdateRequest(Carte request) {
+       if (request.getStoc()<0){
+           throw new PropertyNotGoodException("Stoc","este mai mic decat zero!");
+
+       }
+       String pattern = "[A-Za-z0-9 ]*";
+       if (!request.getNume().matches(pattern)){
+           throw new PropertyNotGoodException("Nume","contine caractere gresite!");
+
+       }
+       var carte  = carteRepository.findByName(request.getNume());
+       if(carte.isPresent())
+       {
+           throw new PropertyNotGoodException("Nume","mai exista o carte cu numele asta!");
+       }
+
+       var autor = autorRepository.findById(request.getIdAutor());
+       if(!autor.isPresent())
+       {
+           throw new PropertyNotGoodException("idAutor", "Nu exista acest autor in baza de date!");
+       }
+
+       var categorie = categorieRepository.findById(request.getIdCategorie());
+       if(!categorie.isPresent())
+       {
+           throw new PropertyNotGoodException("idCategorie", "Nu exista acesta categorie in baza de date!");
+       }
+
+       return 0;
    }
 
    public int validateDelete(int requestId)

@@ -111,7 +111,7 @@ public class CarteRepository {
         int affectedRows = jdbcTemplate.update(sql, carte.getIsbn(), carte.getNume(), carte.getIdAutor(), carte.getDataAdaugare(),
                 carte.getIdCategorie(),carte.getStoc(), carte.getId());
         if (affectedRows == 0) {
-            throw new RuntimeException("Nu a fost gasita nicio carte cu id-ul " + carte.getId());
+            throw new EntityNotFoundException("Carte");
         }
         else return affectedRows;
     }

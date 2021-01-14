@@ -40,6 +40,3 @@ public class UtilizatorDto {
     private boolean activat;
     private int idRol;
 }
-
-//todo: loginDTO
-//todo: idROL by default ce valoare are? activat default e 0

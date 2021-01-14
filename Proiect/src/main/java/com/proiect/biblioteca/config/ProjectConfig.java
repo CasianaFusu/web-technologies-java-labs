@@ -7,6 +7,7 @@ import com.proiect.biblioteca.mapper.CategorieMapperImpl;
 import com.proiect.biblioteca.mapper.ImprumutMapperImpl;
 import com.proiect.biblioteca.mapper.UtilizatorMapperImpl;
 import com.proiect.biblioteca.mapper.SolicitareMapperImpl;
+import com.proiect.biblioteca.mapper.RolMapperImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,5 +41,10 @@ public class ProjectConfig  {
     @Bean
     public SolicitareMapper solicitareMapper() {
         return new SolicitareMapperImpl();
+    }
+
+    @Bean
+    public RolMapper rolMapper() {
+        return new RolMapperImpl();
     }
 }

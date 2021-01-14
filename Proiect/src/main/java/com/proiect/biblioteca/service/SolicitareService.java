@@ -4,6 +4,8 @@ import com.proiect.biblioteca.domain.Carte;
 import com.proiect.biblioteca.domain.Imprumut;
 import com.proiect.biblioteca.domain.Solicitare;
 import com.proiect.biblioteca.exception.BadRequestException;
+import com.proiect.biblioteca.exception.EntityNotFoundException;
+import com.proiect.biblioteca.exception.PropertyNotGoodException;
 import com.proiect.biblioteca.repository.CarteRepository;
 import com.proiect.biblioteca.repository.ImprumutRepository;
 import com.proiect.biblioteca.repository.SolicitareRepository;
@@ -27,19 +29,32 @@ public class SolicitareService {
 
     public Solicitare create(Solicitare request){
         var imprumut = imprumutRepository.findById(request.getIdImprumut());
-        if(imprumut.isPresent())
+        if(imprumut.isPresent()){
+            if(imprumut.get().isIncheiat() == true){
+                throw new PropertyNotGoodException("Incheiat", "Nu puteti solicita amanarea pentru un imprumut incheiat.");
+            }
             return solicitareRepository.create(request);
+        }
+
         else
-            throw new BadRequestException("Nu exista un imprumut cu acest id");
+            throw new EntityNotFoundException("Imprumut");
     }
 
     public Solicitare aproba(int id,int idUtilizatorAutentificat){
         this.authValidatorService.ValidateBibliotecar(idUtilizatorAutentificat);
-        var imprumut = imprumutRepository.findById(id);
-        if(imprumut.isPresent())
+
+        Solicitare solicitare = solicitareRepository.findById(id).get();
+        if(solicitare.getAprobat()== true){
+            throw new PropertyNotGoodException("Aprobat", "Aceasta solicitare a fost deja aprobata");
+        }
+
+        var imprumut = imprumutRepository.findById(solicitareRepository.findById(id).get().getIdImprumut());
+        if(imprumut.isPresent()){
+            imprumutRepository.changeTermenExpirareImprumut(solicitare.getIdImprumut(),solicitare.getTermenAmanare());
             return solicitareRepository.aproba(id);
+        }
         else
-            throw new BadRequestException("Nu exista un imprumut cu acest id");
+            throw new EntityNotFoundException("Imprumut");
     }
 
     public List<Solicitare> getAll(){

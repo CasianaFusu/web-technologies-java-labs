@@ -57,7 +57,7 @@ public class CarteController {
     }
 
     @PutMapping(path = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> update(@RequestBody CarteDto request){
+    public ResponseEntity<Integer> update(@Valid @RequestBody CarteDto request){
         int affectedRows = service.update(mapper.toEntity(request));
         return new ResponseEntity<Integer>(affectedRows,HttpStatus.OK);
     }

@@ -51,7 +51,7 @@ public class CarteService {
     }
 
     public int update(Carte request) {
-        validatorService.validateRequest(request);
+        validatorService.validateUpdateRequest(request);
         return carteRepository.update(request);
     }
 
