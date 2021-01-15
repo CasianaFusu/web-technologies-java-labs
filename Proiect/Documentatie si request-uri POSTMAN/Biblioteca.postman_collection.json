@@ -1,0 +1,1101 @@
+{
+	"info": {
+		"_postman_id": "6815ea9d-b3f9-461c-8629-4d6757c7dd24",
+		"name": "Biblioteca",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Carte",
+			"item": [
+				{
+					"name": "Vizualizare carti",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carti/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								""
+							]
+						},
+						"description": "Returneaza toate cartile"
+					},
+					"response": []
+				},
+				{
+					"name": "Vizualizare carte dupa id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carti/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"6"
+							]
+						},
+						"description": "Returnare carte in functie de id\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Cautare carte dupa nume",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carti/getbyname/1984",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"getbyname",
+								"1984"
+							]
+						},
+						"description": "Get carte by name\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Cautare carti dupa autori",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carti/getbyauthor/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"getbyauthor",
+								"1"
+							]
+						},
+						"description": "Get carti by autor"
+					},
+					"response": []
+				},
+				{
+					"name": "Adaugare carte",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"isbn\": \"9876755462834\",\n\t\"nume\": \"O viata marunta\",\n\t\"idAutor\": \"1\",\n\t\"idCategorie\": \"2\",\n\t\"dataAdaugare\": \"2021-01-15\",\n\t\"stoc\": \"10\"\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/carti/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"create"
+							]
+						},
+						"description": "Adaugare carte"
+					},
+					"response": []
+				},
+				{
+					"name": "Adaugare carte - teste validare",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"isbn\": \"f01234558891234\",\n\t\"nume\": \"1984\",\n\t\"idAutor\": \"100\",\n\t\"idCategorie\": \"100\",\n\t\"dataAdaugare\": \"2020-08-08\",\n\t\"stoc\": \"-10\"\n}\n"
+						},
+						"url": {
+							"raw": "http://localhost:8080/carti/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"create"
+							]
+						},
+						"description": "\r\n\r\nNume contine caractere ilegale\r\nData mai veche decat data actuala"
+					},
+					"response": []
+				},
+				{
+					"name": "Modificare detalii carte",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 6,\n    \"isbn\": \"9273648323230\",\n    \"nume\": \"Poezii alese Mihai Eminescu\",\n    \"idAutor\": 8,\n    \"idCategorie\": 1,\n    \"dataAdaugare\": \"2020-06-05\",\n    \"stoc\": 23\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/carti/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"update"
+							]
+						},
+						"description": "Update carte"
+					},
+					"response": []
+				},
+				{
+					"name": "Stergere carte",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carti/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"delete",
+								"1"
+							]
+						},
+						"description": "Delete carte"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autor",
+			"item": [
+				{
+					"name": "Vizualizarea tuturor autorilor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/autori/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"autori",
+								""
+							]
+						},
+						"description": "Get lista autori"
+					},
+					"response": []
+				},
+				{
+					"name": "Vizualizare autor in functie de id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/autori/8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"autori",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adaugare autor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nume\":\"Brie\",\n\t\"prenume\":\"Alin\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/autori/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"autori",
+								"create"
+							]
+						},
+						"description": "Create autor"
+					},
+					"response": []
+				},
+				{
+					"name": "Modificare informatii despre autor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\":\"8\",\n\t\"nume\":\"Eminescu\",\n\t\"prenume\":\"Mihai\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/autori/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"autori",
+								"update"
+							]
+						},
+						"description": "Update autor"
+					},
+					"response": []
+				},
+				{
+					"name": "Steregere autor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/autori/delete/20",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"autori",
+								"delete",
+								"20"
+							]
+						},
+						"description": "Delete autor"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorie",
+			"item": [
+				{
+					"name": "Vizualizare categorii",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categorii",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categorii"
+							]
+						},
+						"description": "Return lista categorii\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Vizualizare categorii dupa id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categorii/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categorii",
+								"2"
+							]
+						},
+						"description": "Get categorie by id"
+					},
+					"response": []
+				},
+				{
+					"name": "Crearea unei noi categorii",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nume\":\"Motivationale\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/categorii/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categorii",
+								"create"
+							]
+						},
+						"description": "Create categorie\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Modificare informatii categorie",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"nume\": \"Carte straina\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/categorii/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categorii",
+								"update"
+							]
+						},
+						"description": "Update categorie"
+					},
+					"response": []
+				},
+				{
+					"name": "Stergere categorie",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/categorii/delete/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categorii",
+								"delete",
+								"7"
+							]
+						},
+						"description": "Delete categorie\r\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utilizator",
+			"item": [
+				{
+					"name": "Vizualizarea tuturor utilizatorilor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/utilizatori/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"utilizatori",
+								""
+							]
+						},
+						"description": "Get utilizator\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Vizualizarea unui utilizator dupa id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/utilizatori/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"utilizatori",
+								"2"
+							]
+						},
+						"description": "Get utilizator\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Inregistrare cont",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"alexandrafusu\",\r\n    \"nume\": \"Fusu\",\r\n    \"prenume\": \"Alexandra\",\r\n    \"email\":\"fusu.alexandra@milnet.local\",\r\n    \"parola\":\"parolatest\",\r\n    \"idRol\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/utilizatori/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"utilizatori",
+								"create"
+							]
+						},
+						"description": "Create Utilizator\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Inregistrare cont - test validari",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"cristianpopescu\",\r\n    \"nume\": \"Cristian2\",\r\n    \"prenume\": \"Popescu2\",\r\n    \"email\":\"popescu.cristian.....@milnet.local\",\r\n    \"parola\":\"\",\r\n    \"idRol\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/utilizatori/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"utilizatori",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificare informatii cont",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"username\": \"AndreiaFratila\",\r\n    \"nume\": \"Fratila\",\r\n    \"prenume\": \"Andreia\",\r\n    \"email\": \"fratila.andreia@gmail.com\",\r\n    \"parola\": \"parolatest\",\r\n    \"idRol\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/utilizatori/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"utilizatori",
+								"update"
+							]
+						},
+						"description": "Update utilizator\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Activare cont",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/utilizatori/activate/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"utilizatori",
+								"activate",
+								"2"
+							]
+						},
+						"description": "Activare cont utilizator"
+					},
+					"response": []
+				},
+				{
+					"name": "Stergere cont",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/utilizatori/delete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"utilizatori",
+								"delete",
+								"1"
+							]
+						},
+						"description": "Delete cont utilizator"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rol",
+			"item": [
+				{
+					"name": "Vizualizare roluri",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/roluri/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"roluri",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vizualizare roluri dupa id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/roluri/8/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"roluri",
+								"8",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creare rol nou",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nume\": \"administrator aplicatie\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/roluri/create/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"roluri",
+								"create",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificare informatii rol",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"nume\": \"administrator aplicatie\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/roluri/update/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"roluri",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Imprumut",
+			"item": [
+				{
+					"name": "___vizualizare carte dupa id (TESTS)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/carti/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carti",
+								"1"
+							]
+						},
+						"description": "Returnare carte in functie de id\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Vizualizare lista imprumuturi",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi"
+							]
+						},
+						"description": "Get imprumut"
+					},
+					"response": []
+				},
+				{
+					"name": "Filtrare imprumuturi neincheiate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi/getImprumuturiNeincheiate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi",
+								"getImprumuturiNeincheiate"
+							]
+						},
+						"description": "Get Imprumuturi Neincheiate"
+					},
+					"response": []
+				},
+				{
+					"name": "Vizualizare imprumut dupa id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi/13",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi",
+								"13"
+							]
+						},
+						"description": "Get imprumut"
+					},
+					"response": []
+				},
+				{
+					"name": "Imprumutare carte",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUtilizatorAutentificat\": 1,\r\n    \"idUtilizator\": \"1\",\r\n    \"idCarte\": \"5\",\r\n    \"dataImprumut\":\"2020-10-10\",\r\n    \"dataExpirare\":\"2020-20-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi",
+								"create"
+							]
+						},
+						"description": "Create imprumut\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Imprumutare carte - teste validare",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUtilizatorAutentificat\": 6,\r\n    \"idUtilizator\": \"123\",\r\n    \"idCarte\": \"53\",\r\n    \"dataImprumut\":\"2021-01-16\",\r\n    \"dataExpirare\":\"2020-01-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Imprumutare carte - stoc indisponibil",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUtilizatorAutentificat\": 1,\r\n    \"idUtilizator\": \"1\",\r\n    \"idCarte\": \"9\",\r\n    \"dataImprumut\":\"2020-10-10\",\r\n    \"dataExpirare\":\"2020-20-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restituire carti",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUtilizatorAutentificat\": 1,\r\n    \"id\": 14,\r\n    \"idUtilizator\": 1,\r\n    \"idCarte\": 5,\r\n    \"dataImprumut\": \"2020-10-10\",\r\n    \"dataExpirare\": \"2021-08-10\",\r\n    \"incheiat\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi",
+								"update"
+							]
+						},
+						"description": "Update imprumut"
+					},
+					"response": []
+				},
+				{
+					"name": "Stergere imprumut",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/imprumuturi/delete/15/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"imprumuturi",
+								"delete",
+								"15",
+								"1"
+							]
+						},
+						"description": "Stocul creste la cartea pentru care era imprumutul..daca era deja incheiat nu mai creste"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Solicitare",
+			"item": [
+				{
+					"name": "Vizualizare solicitari de amanare",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/solicitari/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"solicitari",
+								""
+							]
+						},
+						"description": "Get solicitari"
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitare de amanare",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idImprumut\": 1,\r\n    \"termenAmanare\": \"2021-12-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/solicitari/create/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"solicitari",
+								"create",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitare de amanare - imprumut deja incheiat",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idImprumut\": 1,\r\n    \"termenAmanare\": \"2021-12-10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/solicitari/create/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"solicitari",
+								"create",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aprobare solicitare de amanare",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/solicitari/aproba/1/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"solicitari",
+								"aproba",
+								"1",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

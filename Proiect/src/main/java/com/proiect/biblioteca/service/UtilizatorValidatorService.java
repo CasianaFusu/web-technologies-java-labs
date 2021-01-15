@@ -25,7 +25,7 @@ public class UtilizatorValidatorService {
         this.rolRepository = rolRepository;
     }
     public int validateRequest(Utilizator request) {
-        String pattern = "[A-Za-z]*";
+        String pattern = "[A-Za-z ]*";
 
         if (!request.getNume().matches(pattern)) {
             throw new PropertyNotGoodException("Nume", "contine caractere ilegale!");

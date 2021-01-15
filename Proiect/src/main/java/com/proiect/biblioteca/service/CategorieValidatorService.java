@@ -25,7 +25,7 @@ public class CategorieValidatorService {
     }
 
     public int validateRequest(Categorie request) {
-        String pattern = "[A-Za-z0-9]*";
+        String pattern = "[A-Za-z0-9 ]*";
 
         if (!request.getNume().matches(pattern)) {
             throw new PropertyNotGoodException("Nume categorie", "contine caractere ilegale!");
@@ -34,7 +34,8 @@ public class CategorieValidatorService {
         var categorie = categorieRepository.findByName(request.getNume());
         if(categorie.isPresent())
         {
-            throw new PropertyNotGoodException("Categorie","mai exista o categorie cu acest nume!");
+            if(categorie.get().getId() != request.getId())
+              throw new PropertyNotGoodException("Categorie","mai exista o categorie cu acest nume!");
         }
         return 0;
     }

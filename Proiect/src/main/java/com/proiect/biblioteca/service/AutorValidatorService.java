@@ -26,7 +26,7 @@ public class AutorValidatorService {
     }
 
     public int validateRequest(Autor request) {
-        String pattern = "[A-Za-z]*";
+        String pattern = "[A-Za-z ]*";
 
         if (!request.getNume().matches(pattern)) {
             throw new PropertyNotGoodException("Nume", "contine caractere ilegale!");
@@ -39,7 +39,8 @@ public class AutorValidatorService {
         var autor = autorRepository.findByName(request.getNume(), request.getPrenume());
         if(autor.isPresent())
         {
-            throw new PropertyNotGoodException("Nume","mai exista un autor cu acest nume!");
+            if(autor.get().getId() != request.getId())
+                throw new PropertyNotGoodException("Nume","mai exista un autor cu acest nume!");
         }
         return 0;
     }

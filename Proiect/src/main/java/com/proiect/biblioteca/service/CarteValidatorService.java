@@ -12,6 +12,10 @@ import com.proiect.biblioteca.repository.ImprumutRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -35,8 +39,11 @@ public class CarteValidatorService {
     }
 
     public int validateRequest(Carte request) {
-        if (request.getDataAdaugare().before( new Date())){
-            throw new PropertyNotGoodException("DataAdaugare","este anterioara zilei de azi!");
+        LocalDate ld = LocalDate.now();
+        Date currenteDate = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        if (!request.getDataAdaugare().after(currenteDate)){
+                throw new PropertyNotGoodException("DataAdaugare","este anterioara zilei de azi!");
         }
         if (request.getStoc()<0){
             throw new PropertyNotGoodException("Stoc","este mai mic decat zero!");
@@ -82,7 +89,8 @@ public class CarteValidatorService {
        var carte  = carteRepository.findByName(request.getNume());
        if(carte.isPresent())
        {
-           throw new PropertyNotGoodException("Nume","mai exista o carte cu numele asta!");
+           if(carte.get().getId() != request.getId())
+            throw new PropertyNotGoodException("Nume","mai exista o carte cu numele acesta!");
        }
 
        var autor = autorRepository.findById(request.getIdAutor());

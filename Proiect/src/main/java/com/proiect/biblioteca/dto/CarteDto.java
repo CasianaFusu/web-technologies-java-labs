@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Data
@@ -23,6 +20,7 @@ public class CarteDto {
 
     private int id;
 
+    @Pattern(message="ISBN contine caractere invalide!" , regexp="[0-9]*")
     @NotNull
     @Size(min = 13, max = 13, message = ISBN_INVALID_LENGTH)
     private String isbn;
